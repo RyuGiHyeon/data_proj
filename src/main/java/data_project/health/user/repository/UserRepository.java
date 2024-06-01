@@ -78,9 +78,10 @@ public class UserRepository {
      */
     public UserDtoRes.userDetails getUserDetails(String userId){
 
-        String query = "SELECT name, gender, phone, createdAt, updatedAt FROM User WHERE userId = ?";
+        String query = "SELECT u.name, u.gender, u.phone, u.createdAt, u.updatedAt, l.lockerId FROM User u, locker l WHERE userId = ?";
 
         return this.jdbcTemplate.queryForObject(query, userDetailsRowMapper, userId);
+        // 트레이닝 수업, 락커번호 불러오기
     }
 
     private final RowMapper<UserDtoRes.userDetails> userDetailsRowMapper = (rs, rowNum) -> UserDtoRes.userDetails.builder()
@@ -89,6 +90,7 @@ public class UserRepository {
             .phone(rs.getString("phone"))
             .createdAt(rs.getDate("createdAt"))
             .updatedAt(rs.getDate("updatedAt"))
+            .locker(rs.getInt("locker"))
             .build();
 
     private final RowMapper<UserDtoRes.userAttendanceA> userAttendanceARowMapper = (rs, rowNum) -> UserDtoRes.userAttendanceA.builder()

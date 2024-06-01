@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.util.Date;
+import java.util.List;
 
 public class UserDtoRes {
 
@@ -39,5 +40,7 @@ public class UserDtoRes {
         private Date createdAt;
         private Date updatedAt;
         private Integer attendanceDay;
+//        private List<String> classes;
+        private Integer locker;
     }
 }
