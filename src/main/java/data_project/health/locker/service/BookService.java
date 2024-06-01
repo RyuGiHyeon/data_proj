@@ -1,7 +1,7 @@
-package data_project.health.book.service;
+package data_project.health.locker.service;
 
-import data_project.health.book.dto.BookDtoReq;
-import data_project.health.book.dto.BookDtoRes;
+import data_project.health.locker.dto.BookDtoReq;
+import data_project.health.locker.dto.BookDtoRes;
 
 public interface BookService {
     BookDtoRes.bookIdRes bookEnroll(BookDtoReq.bookEnroll request);

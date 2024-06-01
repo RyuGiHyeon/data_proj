@@ -1,4 +1,4 @@
-package data_project.health.book.dto;
+package data_project.health.locker.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

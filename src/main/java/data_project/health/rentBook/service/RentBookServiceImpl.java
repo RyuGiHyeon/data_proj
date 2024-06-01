@@ -1,6 +1,6 @@
 package data_project.health.rentBook.service;
 
-import data_project.health.book.repository.BookRepository;
+import data_project.health.locker.repository.BookRepository;
 import data_project.health.global.exception.BusinessException;
 import data_project.health.global.exception.errorcode.CommonErrorCode;
 import data_project.health.rentBook.dto.RentBookDtoReq;

@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
 
 
 public class UserDtoReq {
@@ -15,18 +16,21 @@ public class UserDtoReq {
     @Getter
     public static class enrollUser{
 
+        // 이름, 휴대폰, 성별, 회원권 시작, 회원권 만료
         @NotBlank(message = "이름은 필수 입력 값입니다.")
         private String name;
-        @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,6}$", message = "이메일 형식이 올바르지 않습니다.")
-        private String email;
-        @NotBlank(message = "비밀번호는 필수 입력 값입니다.")
-        @Pattern(regexp = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,16}", message = "비밀번호는 8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.")
-        private String password;
-        @NotBlank(message = "재확인 비밀번호는 필수 입력 값입니다.")
-        @Pattern(regexp = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,16}", message = "비밀번호는 8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.")
-        private String passwordCheck;
+        @NotBlank(message = "전화번호는 필수 입력 값입니다.")
+        @Pattern(regexp = "^010-\\d{4}-\\d{4}$", message = "전화번호는 010-0000-0000 형식이어야 합니다.")
+        private String phone;
+        @NotBlank(message = "성별을 입력해주세요.\n 예) (남자, 여자)")
+        private String gender;
+        @NotBlank(message = "회원권 시작 일자는 필수 입력 값입니다.")
+        private Date createdAt;
+        @NotBlank(message = "회원권 만료 일자는 필수 입력 값입니다.")
+        private Date updatedAt;
     }
 
+    /*
     @Builder
     @Getter
     public static class verifyAuth{
@@ -37,11 +41,11 @@ public class UserDtoReq {
     }
 
     @Getter
-    public static class userLoginReq{
+    public static class userLogin{
         @NotBlank(message = "이름은 공백일 수 없습니다.")
         private String email;
         @NotBlank(message = "비밀번호는 공백일 수 없습니다.")
         private String password;
-    }
+    }*/
 
 }

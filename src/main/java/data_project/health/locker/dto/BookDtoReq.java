@@ -1,4 +1,4 @@
-package data_project.health.book.dto;
+package data_project.health.locker.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

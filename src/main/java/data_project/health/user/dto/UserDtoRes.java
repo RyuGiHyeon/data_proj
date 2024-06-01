@@ -8,14 +8,12 @@ public class UserDtoRes {
     @Builder
     @Getter
     public static class enrollUser{
-        private Long user_id;
+        private String phone;
     }
 
     @Builder
     @Getter
-    public static class userLoginRes{
-        private Long user_id;
+    public static class userAttendance{
+        private String userId;
     }
-
-
 }
