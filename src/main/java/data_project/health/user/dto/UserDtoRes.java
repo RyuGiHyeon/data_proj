@@ -15,7 +15,7 @@ public class UserDtoRes {
 
     @Builder
     @Getter
-    public static class userAttendance{
+    public static class userAttendanceB {
         private String userId;
         private String gender;
         private Integer expiredAt;
@@ -23,9 +23,21 @@ public class UserDtoRes {
 
     @Builder
     @Getter
-    public static class userDetails{
+    public static class userAttendanceA {
         private String userId;
+        private String name;
         private String gender;
         private Date updatedAt;
+    }
+
+    @Builder
+    @Getter
+    public static class userDetails {
+        private String name;
+        private String gender;
+        private String phone;
+        private Date createdAt;
+        private Date updatedAt;
+        private Integer attendanceDay;
     }
 }

@@ -1,6 +1,5 @@
 package data_project.health.user.controller;
 
-import data_project.health.locker.dto.BookDtoRes;
 import data_project.health.global.response.SuccessResponse;
 import data_project.health.user.dto.UserDtoReq;
 import data_project.health.user.dto.UserDtoRes;
@@ -50,7 +49,7 @@ public class UserController {
      * 회원 출석
      */
     @PostMapping("/attendance")
-    public SuccessResponse<UserDtoRes.userAttendance> attendance(@RequestBody @Valid UserDtoReq.attendance request){
+    public SuccessResponse<UserDtoRes.userAttendanceB> attendance(@RequestBody @Valid UserDtoReq.attendance request){
         return SuccessResponse.success(userService.attendance(request));
     }
 
@@ -59,6 +58,10 @@ public class UserController {
      * 24.05.31 작성자 : 류기현
      * 회원 조회
      */
+    @GetMapping("/userDetails")
+    public SuccessResponse<UserDtoRes.userDetails> userDetails(@RequestBody @Valid UserDtoReq.attendance request){
+        return SuccessResponse.success(userService.details(request));
+    }
 
     /**
      * 24.05.31 작성자 : 류기현
