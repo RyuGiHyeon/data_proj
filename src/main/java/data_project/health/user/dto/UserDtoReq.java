@@ -47,13 +47,4 @@ public class UserDtoReq {
         private String userId;
     }
 
-    @Builder
-    @Setter
-    @Getter
-    public static class enrollClass {
-
-        private String userId;
-        private Long trainingClass;
-    }
-
 }
