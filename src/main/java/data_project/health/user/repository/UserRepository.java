@@ -65,12 +65,11 @@ public class UserRepository {
      * 24.06.01 작성자 : 류기현
      * 회원 id로 회원 기본 정보 조회
      */
-   /** public UserDtoRes.userAttendanceA getUserBasic(String userId){
-
+    public UserDtoRes.userAttendanceA getUserBasic(String userId){
         String query = "SELECT userId, name, gender, updatedAt FROM User WHERE userId = ?";
 
         return this.jdbcTemplate.queryForObject(query, userAttendanceARowMapper, userId);
-    }**/
+    }
 
 
     /**
@@ -116,5 +115,12 @@ public class UserRepository {
             .locker(rs.getInt("lockerId"))
             .classNames(rs.getString("classNames"))
             .attendanceDates(rs.getString("attendanceDates"))
+            .build();
+
+    private final RowMapper<UserDtoRes.userAttendanceA> userAttendanceARowMapper = (rs, rowNum) -> UserDtoRes.userAttendanceA.builder()
+            .userId(rs.getString("userId"))
+            .name(rs.getString("name"))
+            .gender(rs.getString("gender"))
+            .updatedAt(rs.getDate("updatedAt"))
             .build();
 }

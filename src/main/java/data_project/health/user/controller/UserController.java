@@ -49,10 +49,6 @@ public class UserController {
      * 24.05.31 작성자 : 류기현
      * 회원 트레이닝 수업 등록
      */
-    @PostMapping("/enrollClass")
-    public SuccessResponse<UserDtoRes.> enrollClass(@RequestBody @Valid UserDtoReq.enrollClass request){
-        return SuccessResponse.success();
-    }
 
 
     /**
