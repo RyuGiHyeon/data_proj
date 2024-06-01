@@ -1,8 +1,8 @@
-package data_project.health.book.controller;
+package data_project.health.locker.controller;
 
-import data_project.health.book.dto.BookDtoReq;
-import data_project.health.book.dto.BookDtoRes;
-import data_project.health.book.service.BookService;
+import data_project.health.locker.dto.BookDtoReq;
+import data_project.health.locker.dto.BookDtoRes;
+import data_project.health.locker.service.BookService;
 import data_project.health.global.response.SuccessResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

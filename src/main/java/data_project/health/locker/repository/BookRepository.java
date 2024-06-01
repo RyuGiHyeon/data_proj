@@ -1,7 +1,7 @@
-package data_project.health.book.repository;
+package data_project.health.locker.repository;
 
-import data_project.health.book.dto.BookDtoReq;
-import data_project.health.book.dto.BookDtoRes;
+import data_project.health.locker.dto.BookDtoReq;
+import data_project.health.locker.dto.BookDtoRes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
