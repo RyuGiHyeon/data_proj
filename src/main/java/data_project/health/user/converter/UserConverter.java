@@ -2,14 +2,17 @@ package data_project.health.user.converter;
 
 import data_project.health.locker.dto.BookDtoRes;
 import data_project.health.user.dto.UserDtoRes;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class UserConverter {
+
 
 //    public static UserDtoRes.enrollUser userIdRes(Long userId){
 //        return UserDtoRes.enrollUser.builder()
-//                .user_id(userId)
+//                .userId(userId)
 //                .build();
 //    }
 //    public static UserDtoRes.userLoginRes userLoginRes(Long userId){

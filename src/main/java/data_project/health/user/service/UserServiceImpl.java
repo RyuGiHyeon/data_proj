@@ -1,30 +1,27 @@
 package data_project.health.user.service;
 
-import data_project.health.locker.dto.BookDtoRes;
+import data_project.health.attendance.repository.AttendanceRepository;
 import data_project.health.global.exception.BusinessException;
 import data_project.health.global.exception.errorcode.CommonErrorCode;
-import data_project.health.user.converter.UserConverter;
 import data_project.health.user.dto.UserDtoReq;
 import data_project.health.user.dto.UserDtoRes;
 import data_project.health.user.repository.UserRepository;
-import data_project.health.util.EncryptHelper;
-import data_project.health.util.RedisUtil;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.ErrorState;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class UserServiceImpl implements UserService {
 
-    private JdbcTemplate jdbcTemplate;
     private final UserRepository userRepository;
+    private final AttendanceRepository attendanceRepository;
 
+    // 회원 등록
     @Override
     @Transactional
     public UserDtoRes.enrollUser signUp(UserDtoReq.enrollUser request) {
@@ -35,20 +32,44 @@ public class UserServiceImpl implements UserService {
         }
 
         // 사용자 등록
-        Long userId = userRepository.signUp(request);
+        String userId = userRepository.signUp(request);
 
-        // 응답 DTO 생성 및 반환
         return UserDtoRes.enrollUser.builder()
-                .phone(request.getPhone())
+                .userId(userId)
                 .build();
     }
 
 
-//    //대여한 책 목록 조회
-//    @Override
-//    public BookDtoRes.searchMyBookList rentBookSearch(Long user_id){
-//        List<BookDtoRes.MyBookRes> list = userRepository.rentBookSearch(user_id);
-//
-//        return UserConverter.rentBookList(list);
-//    }
+    // 회원 출석
+    @Override
+    public UserDtoRes.userAttendance attendance(UserDtoReq.attendance request) {
+        UserDtoRes.userDetails userDetails = userRepository.getUserInfoByUserId(request.getUserId());
+        Integer expiredAt = calculateDaysBetween(userDetails.getUpdatedAt());
+
+        if (expiredAt >= 0)
+            attendanceRepository.attendance(userDetails.getUserId());
+        else
+            throw new BusinessException(CommonErrorCode.USER_MEMBERSHIP_EXPIRED);
+
+
+        return UserDtoRes.userAttendance.builder()
+                .userId(userDetails.getUserId())
+                .gender(userDetails.getGender())
+                .expiredAt(expiredAt)
+                .build();
+    }
+
+
+    // 남은 회원권 일수 계산
+    @Override
+    public Integer calculateDaysBetween(Date updatedAt) {
+
+        Date now = new Date();
+
+        // 두 날짜의 차이를 밀리초 단위로 계산, 일 단위로 변환
+        long diffInMillis = now.getTime() - updatedAt.getTime();
+        long diffInDays = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
+
+        return (int) diffInDays;
+    }
 }

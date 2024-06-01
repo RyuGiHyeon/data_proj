@@ -49,6 +49,10 @@ public class UserController {
      * 24.05.31 작성자 : 류기현
      * 회원 출석
      */
+    @PostMapping("/attendance")
+    public SuccessResponse<UserDtoRes.userAttendance> attendance(@RequestBody @Valid UserDtoReq.attendance request){
+        return SuccessResponse.success(userService.attendance(request));
+    }
 
 
     /**
