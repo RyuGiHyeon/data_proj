@@ -36,7 +36,7 @@ public class UserController {
 
 
     /**
-     * 24.05.31 작성자 : 류기현
+     * 24.06.01 작성자: 윤다은
      * 회원 조회
      */
     @GetMapping("/userDetails")
@@ -49,6 +49,7 @@ public class UserController {
      * 24.05.31 작성자 : 류기현
      * 회원 트레이닝 수업 등록
      */
+
 
     /**
      * 24.05.31 작성자 : 류기현

@@ -1,16 +1,8 @@
 package data_project.health.trainingClass.service;
 
-import data_project.health.trainingClass.dto.TrainingDtoReq;
-import data_project.health.trainingClass.dto.TrainingDtoRes;
+import data_project.health.trainingClass.dto.TrainingClassList;
 
-public interface TrainingService {
-    TrainingDtoRes.bookIdRes bookEnroll(TrainingDtoReq.bookEnroll request);
+public interface TrainingService{
+    TrainingClassList getAllTrainingClasses();
 
-    void bookUpdate(TrainingDtoReq.bookUpdate request);
-
-    void bookDelete(Long bookId);
-
-    TrainingDtoRes.searchBookList bookSearch();
-
-    TrainingDtoRes.searchBookList bookRentSearch();
 }
