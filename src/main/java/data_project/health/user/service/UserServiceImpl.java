@@ -60,6 +60,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean enrollClass(UserDtoReq.enrollClass request) {
+
+        return false;
+    }
+
+    @Override
     public UserDtoRes.userDetails details(UserDtoReq.attendance request) {
         return userRepository.getUserDetails(request.getUserId());
     }

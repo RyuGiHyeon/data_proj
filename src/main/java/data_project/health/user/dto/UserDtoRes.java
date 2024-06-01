@@ -43,4 +43,5 @@ public class UserDtoRes {
 //        private List<String> classes;
         private Integer locker;
     }
+
 }
