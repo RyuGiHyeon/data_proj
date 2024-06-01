@@ -1,4 +1,4 @@
-package data_project.health.locker.dto;
+package data_project.health.trainingClass.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookDtoRes {
+public class TrainingDtoRes {
 
     @Builder
     @Getter
