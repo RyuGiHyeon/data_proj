@@ -17,25 +17,6 @@ public class UserController {
     private final UserService userService;
 
     /**
-     * 24.01.19 작성자 : 정주현
-     * 회원 등록
-     */
-//    @PostMapping("/signup")
-//    public SuccessResponse<UserDtoRes.enrollUser> signUp(@RequestBody @Valid UserDtoReq.enrollUser request) {
-//        return SuccessResponse.success(userService.signUp(request));
-//    }
-
-    /**
-     * 24.01.19 작성자 : 정주현
-     * 대여한 책 조회
-     */
-//    @GetMapping("/serach/rentbook")
-//    public SuccessResponse<BookDtoRes.searchMyBookList> rentBookSearch(@RequestParam(name = "user_id") Long user_id) {
-//
-//        return SuccessResponse.success(userService.rentBookSearch(user_id));
-//    }
-
-    /**
      * 24.05.31 작성자 : 류기현
      * 회원 등록
      */

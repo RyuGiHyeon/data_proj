@@ -1,10 +1,10 @@
-package data_project.health.rentBook.dto;
+package data_project.health.trainer.dto;
 
 import lombok.Getter;
 
 import java.time.LocalDate;
 
-public class RentBookDtoReq {
+public class TrainerDtoReq {
 
 
     @Getter

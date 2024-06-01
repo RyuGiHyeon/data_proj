@@ -1,10 +1,10 @@
-package data_project.health.rentBook.controller;
+package data_project.health.trainer.controller;
 
 
 import data_project.health.global.response.SuccessResponse;
-import data_project.health.rentBook.dto.RentBookDtoReq;
-import data_project.health.rentBook.dto.RentBookDtoRes;
-import data_project.health.rentBook.service.RentBookService;
+import data_project.health.trainer.dto.TrainerDtoReq;
+import data_project.health.trainer.dto.TrainerDtoRes;
+import data_project.health.trainer.service.TrainerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/rentbook")
-public class RentBookController {
+public class TrainerController {
 
-    private final RentBookService rentBookService;
+    private final TrainerService trainerService;
 
     /**
      * 24.05.29 작성자 : 정주현
      * 책 대여
      */
     @PostMapping("")
-    public SuccessResponse<RentBookDtoRes.RentBookRes> rentBook(@RequestBody @Valid RentBookDtoReq.rentBookReq request) {
-        return SuccessResponse.success(rentBookService.rentBook(request));
+    public SuccessResponse<TrainerDtoRes.RentBookRes> rentBook(@RequestBody @Valid TrainerDtoReq.rentBookReq request) {
+        return SuccessResponse.success(trainerService.rentBook(request));
     }
 
     /**
@@ -31,7 +31,7 @@ public class RentBookController {
      */
     @DeleteMapping("/return/{rent_book_id}")
     public SuccessResponse<String> returnBook(@PathVariable Long rent_book_id ) {
-        rentBookService.returnBook(rent_book_id);
+        trainerService.returnBook(rent_book_id);
         return SuccessResponse.successWithoutResult(null);
     }
 
@@ -41,7 +41,7 @@ public class RentBookController {
      */
     @PatchMapping("/renew/{rent_book_id}")
     public SuccessResponse<String> renewBook(@PathVariable Long rent_book_id ) {
-        rentBookService.renewBook(rent_book_id);
+        trainerService.renewBook(rent_book_id);
         return SuccessResponse.successWithoutResult(null);
     }
 

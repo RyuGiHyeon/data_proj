@@ -1,4 +1,4 @@
-package data_project.health.rentBook.dto;
+package data_project.health.trainer.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-public class RentBookDtoRes {
+public class TrainerDtoRes {
 
     @Builder
     @Getter

@@ -1,7 +1,7 @@
-package data_project.health.rentBook.repository;
+package data_project.health.trainer.repository;
 
-import data_project.health.rentBook.dto.RentBookDtoReq;
-import data_project.health.rentBook.dto.RentBookDtoRes;
+import data_project.health.trainer.dto.TrainerDtoReq;
+import data_project.health.trainer.dto.TrainerDtoRes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 import java.time.LocalDate;
 
 @Repository
-public class RentBookRepository {
+public class TrainerRepository {
 
     private JdbcTemplate jdbcTemplate;
 
@@ -26,7 +26,7 @@ public class RentBookRepository {
         return this.jdbcTemplate.queryForObject(query, String.class, book_id);
     }
 
-    public Long rentBook(RentBookDtoReq.rentBookReq request) {
+    public Long rentBook(TrainerDtoReq.rentBookReq request) {
         String query = "INSERT INTO Rent_book(user_id,book_id,rent_day,return_day) VALUES(?,?,?,?)";
         Object[] params = new Object[]{
                 request.getUser_id(),
@@ -49,11 +49,11 @@ public class RentBookRepository {
         return jdbcTemplate.update(updateQuery,status,book_id);
     }
 
-    public RentBookDtoRes.RentBookRes selectRentBook(Long rent_book_id) {
+    public TrainerDtoRes.RentBookRes selectRentBook(Long rent_book_id) {
         String query = "SELECT rent_book_id, book_id, rent_day, return_day FROM Rent_book WHERE rent_book_id = ?";
 
         return this.jdbcTemplate.queryForObject(query, new Object[]{rent_book_id},
-                (rs, rowNum) -> new RentBookDtoRes.RentBookRes(
+                (rs, rowNum) -> new TrainerDtoRes.RentBookRes(
                         rs.getLong("rent_book_id"),
                         rs.getLong("book_id"),
                         rs.getTimestamp("rent_day").toLocalDateTime().toLocalDate(),

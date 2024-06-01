@@ -1,10 +1,6 @@
 package data_project.health.user.converter;
 
-import data_project.health.locker.dto.BookDtoRes;
-import data_project.health.user.dto.UserDtoRes;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 public class UserConverter {

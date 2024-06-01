@@ -1,4 +1,4 @@
-package data_project.health.locker.dto;
+package data_project.health.trainingClass.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-public class BookDtoReq {
+public class TrainingDtoReq {
 
     @Builder
     @Getter
