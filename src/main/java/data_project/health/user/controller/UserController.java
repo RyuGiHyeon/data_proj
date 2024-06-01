@@ -1,6 +1,9 @@
 package data_project.health.user.controller;
 
 import data_project.health.global.response.SuccessResponse;
+import data_project.health.trainingClass.dto.TrainingClass;
+import data_project.health.user.dto.PostLockerNumber;
+import data_project.health.user.dto.PostTrainingClass;
 import data_project.health.user.dto.UserDtoReq;
 import data_project.health.user.dto.UserDtoRes;
 import data_project.health.user.service.UserService;
@@ -46,15 +49,24 @@ public class UserController {
 
 
     /**
-     * 24.05.31 작성자 : 류기현
+     * 24.06.01 작성자 : 윤다은
      * 회원 트레이닝 수업 등록
      */
+    @PostMapping("/training")
+    public SuccessResponse<UserDtoRes.TrainingClass> training(@RequestBody @Valid PostTrainingClass request) {
+        return SuccessResponse.success(userService.training(request));
+    }
+
 
 
     /**
-     * 24.05.31 작성자 : 류기현
+     * 24.06.01 작성자 : 윤다은
      * 회원 락커 등록
      */
+    @PostMapping("/locker")
+    public SuccessResponse<UserDtoRes.PostLocker> postlocker(@RequestBody @Valid PostLockerNumber request) {
+        return SuccessResponse.success(userService.postlocker(request));
+    }
 
 
     /**

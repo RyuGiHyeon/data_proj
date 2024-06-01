@@ -1,5 +1,7 @@
 package data_project.health.user.repository;
 
+import data_project.health.user.dto.PostLockerNumber;
+import data_project.health.user.dto.PostTrainingClass;
 import data_project.health.user.dto.UserDtoReq;
 import data_project.health.user.dto.UserDtoRes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,11 +67,12 @@ public class UserRepository {
      * 24.06.01 작성자 : 류기현
      * 회원 id로 회원 기본 정보 조회
      */
-    public UserDtoRes.userAttendanceA getUserBasic(String userId){
+   /** public UserDtoRes.userAttendanceA getUserBasic(String userId){
+
         String query = "SELECT userId, name, gender, updatedAt FROM User WHERE userId = ?";
 
         return this.jdbcTemplate.queryForObject(query, userAttendanceARowMapper, userId);
-    }
+    }**/
 
 
     /**
@@ -117,10 +120,41 @@ public class UserRepository {
             .attendanceDates(rs.getString("attendanceDates"))
             .build();
 
-    private final RowMapper<UserDtoRes.userAttendanceA> userAttendanceARowMapper = (rs, rowNum) -> UserDtoRes.userAttendanceA.builder()
-            .userId(rs.getString("userId"))
-            .name(rs.getString("name"))
-            .gender(rs.getString("gender"))
-            .updatedAt(rs.getDate("updatedAt"))
-            .build();
+    /**
+     * 24.06.01 작성자 : 윤다은
+     * 수강 등록
+     */
+    public String postTrainingClass(PostTrainingClass request) {
+
+        String query = "INSERT INTO ClassUser(user, trainingClass) VALUES (?, ?);";
+        Object[] params = new Object[]{
+
+                request.getUserId(),
+                request.getClassId()
+
+        };
+        this.jdbcTemplate.update(query, params);
+
+        //String lastInsertIdQuery = "select last_insert_id()";
+        //return this.jdbcTemplate.queryForObject(lastInsertIdQuery,String.class);
+
+        return request.getUserId();
+
+    }
+
+
+    /**
+     * 24.06.01 작성자 : 윤다은
+     * Locker 등록
+     */
+    public String postLockerNumber(PostLockerNumber request) {
+
+        String query = "INSERT INTO locker(lockerId, userId) VALUES (?, ?);";
+        Object[] params = new Object[]{
+                request.getLockerId(),
+                request.getLockerId()
+        };
+        this.jdbcTemplate.update(query, params);
+        return request.getLockerId();
+    }
 }

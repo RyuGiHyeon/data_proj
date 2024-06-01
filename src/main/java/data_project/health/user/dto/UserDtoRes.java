@@ -31,6 +31,8 @@ public class UserDtoRes {
         private Date updatedAt;
     }
 
+
+
     @Builder
     @Getter
     public static class userDetails {
@@ -42,6 +44,17 @@ public class UserDtoRes {
         private String classNames;
         private String attendanceDates;
         private Integer locker;
+    }
+
+    @Builder
+    @Getter
+    public static class TrainingClass {
+        private String userId;
+    }
+    @Builder
+    @Getter
+    public static class PostLocker {
+        private String lockerId;
     }
 
 }

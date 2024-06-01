@@ -3,6 +3,8 @@ package data_project.health.user.service;
 import data_project.health.attendance.repository.AttendanceRepository;
 import data_project.health.global.exception.BusinessException;
 import data_project.health.global.exception.errorcode.CommonErrorCode;
+import data_project.health.user.dto.PostLockerNumber;
+import data_project.health.user.dto.PostTrainingClass;
 import data_project.health.user.dto.UserDtoReq;
 import data_project.health.user.dto.UserDtoRes;
 import data_project.health.user.repository.UserRepository;
@@ -45,7 +47,19 @@ public class UserServiceImpl implements UserService {
         return userRepository.getUserDetails(request.getUserId());
     }
 
+    @Override
+    public UserDtoRes.TrainingClass training(PostTrainingClass request) {
+        String userId = userRepository.postTrainingClass(request);
+        return UserDtoRes.TrainingClass.builder().userId(userId).build();
 
+    }
+
+    @Override
+    public UserDtoRes.PostLocker postlocker(PostLockerNumber request) {
+        String lockerId = userRepository.postLockerNumber(request);
+        return UserDtoRes.PostLocker.builder().lockerId(lockerId).build();
+
+    }
 
     // 회원 출석
     @Override

@@ -33,10 +33,18 @@ public class TrainingRepository {
                 "JOIN Trainer t ON tc.trainer = t.trainerId\n" +
                 "JOIN ClassUser cu ON tc.ptId = cu.trainingClass\n" +
                 "GROUP BY tc.category, t.name, tc.schedule, tc.classTime;";
-        return this.jdbcTemplate.query(query, trainingClassRowMapper);
+
+        return this.jdbcTemplate.query(query,
+                ((rs, rowNum) -> new TrainingClass(
+                        rs.getString("className"),
+                        rs.getString("trainerName"),
+                        rs.getString("schedule"),
+                        rs.getTime("classTime"),
+                        rs.getInt("studentCount")
+                )));
     }
 
-    private final RowMapper<TrainingClass> trainingClassRowMapper = (rs, rowNum) -> {
+    /*private final RowMapper<TrainingClass> trainingClassRowMapper = (rs, rowNum) -> {
         TrainingClass trainingClass = new TrainingClass();
         trainingClass.setClassName(rs.getString("className"));
         trainingClass.setTrainerName(rs.getString("trainerName"));
@@ -44,6 +52,6 @@ public class TrainingRepository {
         trainingClass.setClassTime(rs.getTimestamp("classTime"));
         trainingClass.setStudentCount(rs.getInt("studentCount"));
         return trainingClass;
-    };
+    };*/
 
 }
