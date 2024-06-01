@@ -16,6 +16,7 @@ public enum CommonErrorCode implements ErrorCode {
     //user error (4001~
     USER_NOT_FOUND(HttpStatus.NOT_FOUND,"4001","해당 유저를 찾을 수 없습니다."),
     USER_PHONE_DUPLICATE(HttpStatus.BAD_REQUEST,"4002","중복된 휴대폰 번호가 존재합니다."),
+    USER_MEMBERSHIP_EXPIRED(HttpStatus.EXPECTATION_FAILED, "4003", "회원권이 만료되었습니다."),
 
 
     //book error(4010~
