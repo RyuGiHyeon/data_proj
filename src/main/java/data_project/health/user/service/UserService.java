@@ -12,5 +12,9 @@ public interface UserService {
 
     UserDtoRes.userDetails details(UserDtoReq.userByUserId request);
 
+    boolean enrollClass(UserDtoReq.enrollClass request);
+
     Integer calculateDaysBetween(Date updatedAt);
+
+
 }
