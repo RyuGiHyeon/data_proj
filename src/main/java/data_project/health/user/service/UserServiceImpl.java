@@ -39,6 +39,13 @@ public class UserServiceImpl implements UserService {
                 .build();
     }
 
+    // usderId를 통해서 회원 정보가져오는 서비스
+    @Override
+    public UserDtoRes.userDetails details(UserDtoReq.userByUserId request) {
+        return userRepository.getUserDetails(request.getUserId());
+    }
+
+
 
     // 회원 출석
     @Override
@@ -57,11 +64,6 @@ public class UserServiceImpl implements UserService {
                 .gender(userAttendanceA.getGender())
                 .expiredAt(expiredAt)
                 .build();
-    }
-
-    @Override
-    public UserDtoRes.userDetails details(UserDtoReq.attendance request) {
-        return userRepository.getUserDetails(request.getUserId());
     }
 
     // 남은 회원권 일수 계산

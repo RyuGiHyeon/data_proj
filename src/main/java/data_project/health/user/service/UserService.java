@@ -10,7 +10,7 @@ public interface UserService {
 
     UserDtoRes.userAttendanceB attendance(UserDtoReq.attendance request);
 
-    UserDtoRes.userDetails details(UserDtoReq.attendance request);
+    UserDtoRes.userDetails details(UserDtoReq.userByUserId request);
 
     Integer calculateDaysBetween(Date updatedAt);
 }

@@ -40,9 +40,10 @@ public class UserController {
      * 회원 조회
      */
     @GetMapping("/userDetails")
-    public SuccessResponse<UserDtoRes.userDetails> userDetails(@RequestBody @Valid UserDtoReq.attendance request){
+    public SuccessResponse<UserDtoRes.userDetails> userDetails(@RequestBody @Valid UserDtoReq.userByUserId request){
         return SuccessResponse.success(userService.details(request));
     }
+
 
     /**
      * 24.05.31 작성자 : 류기현

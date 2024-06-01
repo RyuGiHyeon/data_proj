@@ -39,8 +39,8 @@ public class UserDtoRes {
         private String phone;
         private Date createdAt;
         private Date updatedAt;
-        private Integer attendanceDay;
-//        private List<String> classes;
+        private String classNames;
+        private String attendanceDates;
         private Integer locker;
     }
 }

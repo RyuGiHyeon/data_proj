@@ -65,38 +65,56 @@ public class UserRepository {
      * 24.06.01 작성자 : 류기현
      * 회원 id로 회원 기본 정보 조회
      */
-    public UserDtoRes.userAttendanceA getUserBasic(String userId){
+   /** public UserDtoRes.userAttendanceA getUserBasic(String userId){
 
         String query = "SELECT userId, name, gender, updatedAt FROM User WHERE userId = ?";
 
         return this.jdbcTemplate.queryForObject(query, userAttendanceARowMapper, userId);
-    }
+    }**/
 
 
     /**
      * 회원 id로 회원 정보 조회
+     * 회원 정보, 참여 수업, 출석 일자 조회
+     *
      */
     public UserDtoRes.userDetails getUserDetails(String userId){
 
-        String query = "SELECT u.name, u.gender, u.phone, u.createdAt, u.updatedAt, l.lockerId FROM User u, locker l WHERE userId = ?";
+        String query = "SELECT\n" +
+                "    u.name,\n" +
+                "    u.gender,\n" +
+                "    u.phone,\n" +
+                "    u.createdAt AS userCreatedAt,\n" +
+                "    u.updatedAt AS userUpdatedAt,\n" +
+                "    l.lockerId,\n" +
+                "    GROUP_CONCAT(DISTINCT tc.category ORDER BY tc.category SEPARATOR ', ') AS classNames,\n" +
+                "    GROUP_CONCAT(DISTINCT a.createdAt ORDER BY a.createdAt SEPARATOR ', ') AS attendanceDates\n" +
+                "FROM\n" +
+                "    User u\n" +
+                "        JOIN\n" +
+                "    locker l ON u.userId = l.user\n" +
+                "        JOIN\n" +
+                "    TrainingClass tc ON u.userId = tc.user\n" +
+                "        JOIN\n" +
+                "    Attendance a ON u.userId = a.user\n" +
+                "WHERE\n" +
+                "        u.userId = ?\n" +
+                "GROUP BY\n" +
+                "    u.userId;";
 
         return this.jdbcTemplate.queryForObject(query, userDetailsRowMapper, userId);
         // 트레이닝 수업, 락커번호 불러오기
+        // 출석일 수도 불러오기
     }
 
     private final RowMapper<UserDtoRes.userDetails> userDetailsRowMapper = (rs, rowNum) -> UserDtoRes.userDetails.builder()
             .name(rs.getString("name"))
             .gender(rs.getString("gender"))
             .phone(rs.getString("phone"))
-            .createdAt(rs.getDate("createdAt"))
-            .updatedAt(rs.getDate("updatedAt"))
-            .locker(rs.getInt("locker"))
-            .build();
-
-    private final RowMapper<UserDtoRes.userAttendanceA> userAttendanceARowMapper = (rs, rowNum) -> UserDtoRes.userAttendanceA.builder()
-            .userId(rs.getString("userId"))
-            .name(rs.getString("name"))
-            .gender(rs.getString("gender"))
-            .updatedAt(rs.getDate("updatedAt"))
+            .createdAt(rs.getDate("userCreatedAt"))
+            .updatedAt(rs.getDate("userUpdatedAt"))
+            .locker(rs.getInt("lockerId"))
+            .classNames(rs.getString("classNames"))
+            .attendanceDates(rs.getString("attendanceDates"))
             .build();
 }
