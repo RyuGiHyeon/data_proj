@@ -43,4 +43,5 @@ public class UserDtoRes {
         private String attendanceDates;
         private Integer locker;
     }
+
 }
