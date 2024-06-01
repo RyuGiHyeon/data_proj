@@ -42,23 +42,27 @@ public class UserServiceImpl implements UserService {
 
     // 회원 출석
     @Override
-    public UserDtoRes.userAttendance attendance(UserDtoReq.attendance request) {
-        UserDtoRes.userDetails userDetails = userRepository.getUserInfoByUserId(request.getUserId());
-        Integer expiredAt = calculateDaysBetween(userDetails.getUpdatedAt());
+    public UserDtoRes.userAttendanceB attendance(UserDtoReq.attendance request) {
+        UserDtoRes.userAttendanceA userAttendanceA = userRepository.getUserBasic(request.getUserId());
+        Integer expiredAt = calculateDaysBetween(userAttendanceA.getUpdatedAt());
 
         if (expiredAt >= 0)
-            attendanceRepository.attendance(userDetails.getUserId());
+            attendanceRepository.attendance(userAttendanceA.getUserId());
         else
             throw new BusinessException(CommonErrorCode.USER_MEMBERSHIP_EXPIRED);
 
 
-        return UserDtoRes.userAttendance.builder()
-                .userId(userDetails.getUserId())
-                .gender(userDetails.getGender())
+        return UserDtoRes.userAttendanceB.builder()
+                .userId(userAttendanceA.getUserId())
+                .gender(userAttendanceA.getGender())
                 .expiredAt(expiredAt)
                 .build();
     }
 
+    @Override
+    public UserDtoRes.userDetails details(UserDtoReq.attendance request) {
+        return userRepository.getUserDetails(request.getUserId());
+    }
 
     // 남은 회원권 일수 계산
     @Override
