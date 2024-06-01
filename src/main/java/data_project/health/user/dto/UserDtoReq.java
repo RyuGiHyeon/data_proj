@@ -46,22 +46,5 @@ public class UserDtoReq {
 
         private String userId;
     }
-    /*
-    @Builder
-    @Getter
-    public static class verifyAuth{
-        @NotBlank(message = "인증번호를 입력해주세요.")
-        private String certificationNumber;
-        @NotBlank(message = "이메일을 입력해주세요.")
-        private String email;
-    }
-
-    @Getter
-    public static class userLogin{
-        @NotBlank(message = "이름은 공백일 수 없습니다.")
-        private String email;
-        @NotBlank(message = "비밀번호는 공백일 수 없습니다.")
-        private String password;
-    }*/
 
 }
