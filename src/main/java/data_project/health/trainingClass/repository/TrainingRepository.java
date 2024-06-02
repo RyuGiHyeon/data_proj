@@ -1,17 +1,16 @@
 package data_project.health.trainingClass.repository;
 
 import data_project.health.trainingClass.dto.TrainingClass;
-import data_project.health.trainingClass.dto.TrainingDtoReq;
-import data_project.health.trainingClass.dto.TrainingDtoRes;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
 
 @Repository
+@Setter
 public class TrainingRepository {
 
     private JdbcTemplate jdbcTemplate;

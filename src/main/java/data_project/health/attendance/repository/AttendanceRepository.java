@@ -1,13 +1,13 @@
 package data_project.health.attendance.repository;
 
-import data_project.health.attendance.dto.AtdDtoReq;
-import data_project.health.user.dto.UserDtoReq;
+import lombok.Setter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 
 @Repository
+@Setter
 public class AttendanceRepository {
 
     private JdbcTemplate jdbcTemplate;

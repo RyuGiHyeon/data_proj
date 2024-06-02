@@ -4,6 +4,7 @@ import data_project.health.user.dto.PostLockerNumber;
 import data_project.health.user.dto.PostTrainingClass;
 import data_project.health.user.dto.UserDtoReq;
 import data_project.health.user.dto.UserDtoRes;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 
 @Repository
+@Setter
 public class UserRepository {
 
     private JdbcTemplate jdbcTemplate;

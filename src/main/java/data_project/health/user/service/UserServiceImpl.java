@@ -41,10 +41,10 @@ public class UserServiceImpl implements UserService {
                 .build();
     }
 
-    // usderId를 통해서 회원 정보가져오는 서비스
+    // phone 을 통해서 회원 정보가져오는 서비스
     @Override
-    public UserDtoRes.userDetails details(UserDtoReq.userByUserId request) {
-        return userRepository.getUserDetails(request.getUserId());
+    public UserDtoRes.userDetails details(UserDtoReq.userByPhone request) {
+        return userRepository.getUserDetails(request.getPhone());
     }
 
     @Override
@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
 
     // 회원 출석
     @Override
-    public UserDtoRes.userAttendanceB attendance(UserDtoReq.attendance request) {
+    public UserDtoRes.userAttendanceB attendance(UserDtoReq.userByPhone request) {
         UserDtoRes.userAttendanceA userAttendanceA = userRepository.getUserBasic(request.getPhone());
         Integer expiredAt = calculateDaysBetween(userAttendanceA.getUpdatedAt());
 

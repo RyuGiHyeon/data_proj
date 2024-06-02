@@ -5,7 +5,6 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.bind.annotation.BindParam;
 
 import java.util.Date;
 
@@ -34,16 +33,8 @@ public class UserDtoReq {
     @Builder
     @Setter
     @Getter
-    public static class attendance {
+    public static class userByPhone {
         @NotBlank(message = "전화번호 뒷 8자리를 입력해주세요")
         private String phone;
-    }
-
-    @Builder
-    @Setter
-    @Getter
-    public static class userByUserId {
-
-        private Long userId;
     }
 }
