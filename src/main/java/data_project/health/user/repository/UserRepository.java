@@ -47,7 +47,7 @@ public class UserRepository {
      */
     public Long signUp(UserDtoReq.enrollUser request){
 
-        String query = "INSERT INTO User(name, phone, gender, createdAt, updatedAt, status) VALUES (?, ?, ?, ?, ?, '등록');";
+        String query = "INSERT INTO User(name, phone, gender, createdAt, updatedAt, status) VALUES (?, ?, ?, ?, ?, 'active');";
         Object[] params = new Object[]{
                 request.getName(),
                 request.getPhone(),
