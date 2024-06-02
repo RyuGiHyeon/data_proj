@@ -1,6 +1,7 @@
 package data_project.health.attendance.repository;
 
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -12,8 +13,14 @@ public class AttendanceRepository {
 
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    public AttendanceRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+
     public boolean attendance(Long userId){
-        String query = "INSERT INTO healthManagement.Attendance(userId, createdAt) VALUES (?, ?);";
+        String query = "INSERT INTO Attendance(userId, createdAt) VALUES (?, ?);";
 
         // 현재 날짜와 시간을 생성
         Date now = new Date();

@@ -92,15 +92,19 @@ public class UserRepository {
                     GROUP_CONCAT(DISTINCT a.createdAt ORDER BY a.createdAt SEPARATOR ', ') AS attendanceDates
                 FROM
                     User u
-                        JOIN
+                        LEFT JOIN
                     Locker l ON u.userId = l.userId
-                        JOIN
-                    TrainingClass tc ON u.userId = tc.userId
-                        JOIN
+                        LEFT JOIN
                     Attendance a ON u.userId = a.userId
+                        LEFT JOIN
+                    ClassUser CU on u.userId = CU.userId
+                        LEFT JOIN
+                    TrainingClass tc on tc.trainingClassId = CU.trainingClassId
                 WHERE
                         u.userId = ?
                 GROUP BY
+                    u.userId
+                ORDER BY
                     u.userId;""";
 
         return this.jdbcTemplate.queryForObject(query, userDetailsRowMapper, phone);
@@ -157,10 +161,10 @@ public class UserRepository {
      */
     public Long postLockerNumber(PostLockerNumber request) {
 
-        String query = "INSERT INTO Locker(lockerId, userId) VALUES (?, ?);";
+        String query = "UPDATE Locker SET userId = ?, status = 'use' WHERE lockerId = ?";
         Object[] params = new Object[]{
-                request.getLockerId(),
-                request.getUserId()
+                request.getUserId(),
+                request.getLockerId()
         };
         this.jdbcTemplate.update(query, params);
         return request.getLockerId();

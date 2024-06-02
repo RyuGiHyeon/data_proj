@@ -62,7 +62,7 @@ public class UserController {
      * 24.06.01 작성자 : 윤다은
      * 회원 락커 등록
      */
-    @PostMapping("/locker")
+    @PatchMapping("/locker")
     public SuccessResponse<UserDtoRes.PostLocker> postlocker(@RequestBody @Valid PostLockerNumber request) {
         return SuccessResponse.success(userService.postlocker(request));
     }

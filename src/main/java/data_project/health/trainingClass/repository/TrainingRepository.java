@@ -27,10 +27,10 @@ public class TrainingRepository {
      * 트레이닝 수업 조회
      */
     public List<TrainingClass> findAll() {
-        String query = "SELECT tc.category AS className, t.name AS trainerName, tc.schedule, tc.classTime, COUNT(cu.user) AS studentCount\n" +
+        String query = "SELECT tc.category AS className, t.name AS trainerName, tc.schedule, tc.classTime, COUNT(cu.userId) AS studentCount\n" +
                 "FROM TrainingClass tc\n" +
-                "JOIN Trainer t ON tc.trainer = t.trainerId\n" +
-                "JOIN ClassUser cu ON tc.ptId = cu.trainingClass\n" +
+                "JOIN Trainer t ON tc.trainerId = t.trainerId\n" +
+                "JOIN ClassUser cu ON tc.trainingClassId = cu.trainingClassId\n" +
                 "GROUP BY tc.category, t.name, tc.schedule, tc.classTime;";
 
         return this.jdbcTemplate.query(query,

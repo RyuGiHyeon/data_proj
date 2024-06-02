@@ -9,6 +9,7 @@ import data_project.health.user.dto.UserDtoReq;
 import data_project.health.user.dto.UserDtoRes;
 import data_project.health.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,11 +44,13 @@ public class UserServiceImpl implements UserService {
 
     // phone 을 통해서 회원 정보가져오는 서비스
     @Override
+    @Transactional(readOnly = false) // 읽기 전용 모드 비활성화
     public UserDtoRes.userDetails details(UserDtoReq.userByPhone request) {
         return userRepository.getUserDetails(request.getPhone());
     }
 
     @Override
+    @Transactional(readOnly = false) // 읽기 전용 모드 비활성화
     public UserDtoRes.TrainingClass training(PostTrainingClass request) {
         Long userId = userRepository.postTrainingClass(request);
         return UserDtoRes.TrainingClass.builder().userId(userId).build();
@@ -55,6 +58,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(readOnly = false)
     public UserDtoRes.PostLocker postlocker(PostLockerNumber request) {
         Long lockerId = userRepository.postLockerNumber(request);
         return UserDtoRes.PostLocker.builder().lockerId(lockerId).build();
@@ -63,6 +67,7 @@ public class UserServiceImpl implements UserService {
 
     // 회원 출석
     @Override
+    @Transactional(readOnly = false)
     public UserDtoRes.userAttendanceB attendance(UserDtoReq.userByPhone request) {
         UserDtoRes.userAttendanceA userAttendanceA = userRepository.getUserBasic(request.getPhone());
         Integer expiredAt = calculateDaysBetween(userAttendanceA.getUpdatedAt());
@@ -87,7 +92,7 @@ public class UserServiceImpl implements UserService {
         Date now = new Date();
 
         // 두 날짜의 차이를 밀리초 단위로 계산, 일 단위로 변환
-        long diffInMillis = now.getTime() - updatedAt.getTime();
+        long diffInMillis = updatedAt.getTime() - now.getTime();
         long diffInDays = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
 
         return (int) diffInDays;
