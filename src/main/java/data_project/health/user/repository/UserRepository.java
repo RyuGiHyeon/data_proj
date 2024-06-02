@@ -78,27 +78,28 @@ public class UserRepository {
      */
     public UserDtoRes.userDetails getUserDetails(Long userId){
 
-        String query = "SELECT\n" +
-                "    u.name,\n" +
-                "    u.gender,\n" +
-                "    u.phone,\n" +
-                "    u.createdAt AS userCreatedAt,\n" +
-                "    u.updatedAt AS userUpdatedAt,\n" +
-                "    l.lockerId,\n" +
-                "    GROUP_CONCAT(DISTINCT tc.category ORDER BY tc.category SEPARATOR ', ') AS classNames,\n" +
-                "    GROUP_CONCAT(DISTINCT a.createdAt ORDER BY a.createdAt SEPARATOR ', ') AS attendanceDates\n" +
-                "FROM\n" +
-                "    User u\n" +
-                "        JOIN\n" +
-                "    locker l ON u.userId = l.user\n" +
-                "        JOIN\n" +
-                "    TrainingClass tc ON u.userId = tc.user\n" +
-                "        JOIN\n" +
-                "    Attendance a ON u.userId = a.user\n" +
-                "WHERE\n" +
-                "        u.userId = ?\n" +
-                "GROUP BY\n" +
-                "    u.userId;";
+        String query = """
+                SELECT
+                    u.name,
+                    u.gender,
+                    u.phone,
+                    u.createdAt AS userCreatedAt,
+                    u.updatedAt AS userUpdatedAt,
+                    l.lockerId,
+                    GROUP_CONCAT(DISTINCT tc.category ORDER BY tc.category SEPARATOR ', ') AS classNames,
+                    GROUP_CONCAT(DISTINCT a.createdAt ORDER BY a.createdAt SEPARATOR ', ') AS attendanceDates
+                FROM
+                    User u
+                        JOIN
+                    Locker l ON u.userId = l.userId
+                        JOIN
+                    TrainingClass tc ON u.userId = tc.userId
+                        JOIN
+                    Attendance a ON u.userId = a.userId
+                WHERE
+                        u.userId = ?
+                GROUP BY
+                    u.userId;""";
 
         return this.jdbcTemplate.queryForObject(query, userDetailsRowMapper, userId);
         // 트레이닝 수업, 락커번호 불러오기
@@ -131,7 +132,7 @@ public class UserRepository {
      */
     public Long postTrainingClass(PostTrainingClass request) {
 
-        String query = "INSERT INTO ClassUser(userId, trainingClass) VALUES (?, ?);";
+        String query = "INSERT INTO ClassUser(userId, trainingClassId) VALUES (?, ?);";
         Object[] params = new Object[]{
 
                 request.getUserId(),
@@ -154,7 +155,7 @@ public class UserRepository {
      */
     public Long postLockerNumber(PostLockerNumber request) {
 
-        String query = "INSERT INTO locker(lockerId, userId) VALUES (?, ?);";
+        String query = "INSERT INTO Locker(lockerId, userId) VALUES (?, ?);";
         Object[] params = new Object[]{
                 request.getLockerId(),
                 request.getUserId()
