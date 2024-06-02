@@ -2,6 +2,7 @@ package data_project.health.user.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
@@ -35,6 +36,7 @@ public class UserDtoRes {
 
     @Builder
     @Getter
+    @Setter
     public static class userDetails {
         private String name;
         private String gender;

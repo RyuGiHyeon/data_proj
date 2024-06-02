@@ -16,6 +16,4 @@ public class TrainingClass implements Serializable {
     private String trainerName; //트레이너 이름 join해서 가져오기
     private String schedule;
     private Date classTime;
-    private int studentCount; //학생 수 count
-
 }

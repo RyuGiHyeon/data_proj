@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -78,8 +79,7 @@ public class UserRepository {
      * 회원 정보, 참여 수업, 출석 일자 조회
      *
      */
-    public UserDtoRes.userDetails getUserDetails(String phone){
-
+    public UserDtoRes.userDetails getUserDetails(String phone) {
         String query = """
                 SELECT
                     u.name,
@@ -92,24 +92,42 @@ public class UserRepository {
                     GROUP_CONCAT(DISTINCT a.createdAt ORDER BY a.createdAt SEPARATOR ', ') AS attendanceDates
                 FROM
                     User u
-                        LEFT JOIN
+                LEFT JOIN
                     Locker l ON u.userId = l.userId
-                        LEFT JOIN
+                LEFT JOIN
                     Attendance a ON u.userId = a.userId
-                        LEFT JOIN
-                    ClassUser CU on u.userId = CU.userId
-                        LEFT JOIN
-                    TrainingClass tc on tc.trainingClassId = CU.trainingClassId
+                LEFT JOIN
+                    ClassUser cu ON u.userId = cu.userId
+                LEFT JOIN
+                    TrainingClass tc ON tc.trainingClassId = cu.trainingClassId
                 WHERE
-                        u.userId = ?
+                    u.phone = ?
                 GROUP BY
                     u.userId
                 ORDER BY
-                    u.userId;""";
+                    u.userId;
+                """;
 
-        return this.jdbcTemplate.queryForObject(query, userDetailsRowMapper, phone);
-        // 트레이닝 수업, 락커번호 불러오기
-        // 출석일 수도 불러오기
+        List<UserDtoRes.userDetails> results = this.jdbcTemplate.query(query, userDetailsRowMapper, phone);
+
+        if (results.isEmpty()) {
+            return UserDtoRes.userDetails.builder()
+                    .name(null)
+                    .gender(null)
+                    .phone(phone)
+                    .createdAt(null)
+                    .updatedAt(null)
+                    .locker(0)
+                    .classNames("non")
+                    .attendanceDates("non")
+                    .build();
+        } else {
+            UserDtoRes.userDetails userDetails = results.get(0);
+            userDetails.setLocker(userDetails.getLocker() == null ? 0 : userDetails.getLocker());
+            userDetails.setClassNames(userDetails.getClassNames() == null ? "non" : userDetails.getClassNames());
+            userDetails.setAttendanceDates(userDetails.getAttendanceDates() == null ? "non" : userDetails.getAttendanceDates());
+            return userDetails;
+        }
     }
 
     private final RowMapper<UserDtoRes.userDetails> userDetailsRowMapper = (rs, rowNum) -> UserDtoRes.userDetails.builder()
@@ -118,7 +136,7 @@ public class UserRepository {
             .phone(rs.getString("phone"))
             .createdAt(rs.getDate("userCreatedAt"))
             .updatedAt(rs.getDate("userUpdatedAt"))
-            .locker(rs.getInt("lockerId"))
+            .locker(rs.getObject("lockerId") != null ? rs.getInt("lockerId") : null)
             .classNames(rs.getString("classNames"))
             .attendanceDates(rs.getString("attendanceDates"))
             .build();
