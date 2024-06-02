@@ -42,14 +42,10 @@ public class UserRepository {
      * 24.06.01 작성자 : 류기현
      * 회원 가입
      */
-    public String signUp(UserDtoReq.enrollUser request){
+    public Long signUp(UserDtoReq.enrollUser request){
 
-        String phone = request.getPhone();
-        String userId = phone.substring(phone.length() - 8);
-
-        String query = "INSERT INTO User(userId, name, phone, gender, createdAt, updatedAt, status) VALUES (?, ?, ?, ?, ?, ?, '등록');";
+        String query = "INSERT INTO User(name, phone, gender, createdAt, updatedAt, status) VALUES (?, ?, ?, ?, ?, '등록');";
         Object[] params = new Object[]{
-                userId,
                 request.getName(),
                 request.getPhone(),
                 request.getGender(),
@@ -60,19 +56,19 @@ public class UserRepository {
         this.jdbcTemplate.update(query, params);
 
         String lastInsertIdQuery = "select last_insert_id()";
-        return this.jdbcTemplate.queryForObject(lastInsertIdQuery, String.class);
+        return this.jdbcTemplate.queryForObject(lastInsertIdQuery, Long.class);
     }
 
     /**
      * 24.06.01 작성자 : 류기현
      * 회원 id로 회원 기본 정보 조회
      */
-   /** public UserDtoRes.userAttendanceA getUserBasic(String userId){
+    public UserDtoRes.userAttendanceA getUserBasic(Long userId){
 
         String query = "SELECT userId, name, gender, updatedAt FROM User WHERE userId = ?";
 
         return this.jdbcTemplate.queryForObject(query, userAttendanceARowMapper, userId);
-    }**/
+    }
 
 
     /**
@@ -80,7 +76,7 @@ public class UserRepository {
      * 회원 정보, 참여 수업, 출석 일자 조회
      *
      */
-    public UserDtoRes.userDetails getUserDetails(String userId){
+    public UserDtoRes.userDetails getUserDetails(Long userId){
 
         String query = "SELECT\n" +
                 "    u.name,\n" +
@@ -120,13 +116,22 @@ public class UserRepository {
             .attendanceDates(rs.getString("attendanceDates"))
             .build();
 
+    private final RowMapper<UserDtoRes.userAttendanceA> userAttendanceARowMapper = (rs, rowNum) -> UserDtoRes.userAttendanceA.builder()
+            .userId(rs.getLong("userId"))
+            .name(rs.getString("name"))
+            .gender(rs.getString("gender"))
+            .updatedAt(rs.getDate("updatedAt"))
+            .build();
+
+
+
     /**
      * 24.06.01 작성자 : 윤다은
      * 수강 등록
      */
-    public String postTrainingClass(PostTrainingClass request) {
+    public Long postTrainingClass(PostTrainingClass request) {
 
-        String query = "INSERT INTO ClassUser(user, trainingClass) VALUES (?, ?);";
+        String query = "INSERT INTO ClassUser(userId, trainingClass) VALUES (?, ?);";
         Object[] params = new Object[]{
 
                 request.getUserId(),
@@ -147,12 +152,12 @@ public class UserRepository {
      * 24.06.01 작성자 : 윤다은
      * Locker 등록
      */
-    public String postLockerNumber(PostLockerNumber request) {
+    public Long postLockerNumber(PostLockerNumber request) {
 
         String query = "INSERT INTO locker(lockerId, userId) VALUES (?, ?);";
         Object[] params = new Object[]{
                 request.getLockerId(),
-                request.getLockerId()
+                request.getUserId()
         };
         this.jdbcTemplate.update(query, params);
         return request.getLockerId();

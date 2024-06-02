@@ -10,6 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PostTrainingClass {
-    private String userId;
-    private String classId;
+    private Long userId;
+    private Long classId;
 }

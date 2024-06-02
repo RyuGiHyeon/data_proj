@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
         }
 
         // 사용자 등록
-        String userId = userRepository.signUp(request);
+        Long userId = userRepository.signUp(request);
 
         return UserDtoRes.enrollUser.builder()
                 .userId(userId)
@@ -49,14 +49,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDtoRes.TrainingClass training(PostTrainingClass request) {
-        String userId = userRepository.postTrainingClass(request);
+        Long userId = userRepository.postTrainingClass(request);
         return UserDtoRes.TrainingClass.builder().userId(userId).build();
 
     }
 
     @Override
     public UserDtoRes.PostLocker postlocker(PostLockerNumber request) {
-        String lockerId = userRepository.postLockerNumber(request);
+        Long lockerId = userRepository.postLockerNumber(request);
         return UserDtoRes.PostLocker.builder().lockerId(lockerId).build();
 
     }

@@ -18,5 +18,6 @@ public interface UserService {
     UserDtoRes.TrainingClass training(PostTrainingClass request);
 
     UserDtoRes.PostLocker postlocker(PostLockerNumber request);
+
     Integer calculateDaysBetween(Date updatedAt);
 }

@@ -11,13 +11,13 @@ public class UserDtoRes {
     @Builder
     @Getter
     public static class enrollUser{
-        private String userId;
+        private Long userId;
     }
 
     @Builder
     @Getter
     public static class userAttendanceB {
-        private String userId;
+        private Long userId;
         private String gender;
         private Integer expiredAt;
     }
@@ -25,7 +25,7 @@ public class UserDtoRes {
     @Builder
     @Getter
     public static class userAttendanceA {
-        private String userId;
+        private Long userId;
         private String name;
         private String gender;
         private Date updatedAt;
@@ -49,12 +49,12 @@ public class UserDtoRes {
     @Builder
     @Getter
     public static class TrainingClass {
-        private String userId;
+        private Long userId;
     }
     @Builder
     @Getter
     public static class PostLocker {
-        private String lockerId;
+        private Long lockerId;
     }
 
 }

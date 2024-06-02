@@ -12,8 +12,8 @@ public class AttendanceRepository {
 
     private JdbcTemplate jdbcTemplate;
 
-    public boolean attendance(String userId){
-        String query = "INSERT INTO healthManagement.Attendance(user, createdAt) VALUES (?, ?);";
+    public boolean attendance(Long userId){
+        String query = "INSERT INTO healthManagement.Attendance(userId, createdAt) VALUES (?, ?);";
 
         // 현재 날짜와 시간을 생성
         Date now = new Date();

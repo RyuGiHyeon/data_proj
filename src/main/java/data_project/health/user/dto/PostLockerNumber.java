@@ -10,6 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PostLockerNumber {
-    private String lockerId;
-    private String userId;
+    private Long lockerId;
+    private Long userId;
 }
