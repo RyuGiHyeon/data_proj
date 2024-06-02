@@ -36,7 +36,7 @@ public class UserDtoReq {
     @Getter
     public static class attendance {
         @NotBlank(message = "전화번호 뒷 8자리를 입력해주세요")
-        private Long userId;
+        private String phone;
     }
 
     @Builder
@@ -46,5 +46,4 @@ public class UserDtoReq {
 
         private Long userId;
     }
-
 }

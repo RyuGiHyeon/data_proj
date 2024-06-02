@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
     // 회원 출석
     @Override
     public UserDtoRes.userAttendanceB attendance(UserDtoReq.attendance request) {
-        UserDtoRes.userAttendanceA userAttendanceA = userRepository.getUserBasic(request.getUserId());
+        UserDtoRes.userAttendanceA userAttendanceA = userRepository.getUserBasic(request.getPhone());
         Integer expiredAt = calculateDaysBetween(userAttendanceA.getUpdatedAt());
 
         if (expiredAt >= 0)

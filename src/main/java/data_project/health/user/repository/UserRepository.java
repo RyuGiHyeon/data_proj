@@ -63,20 +63,20 @@ public class UserRepository {
      * 24.06.01 작성자 : 류기현
      * 회원 id로 회원 기본 정보 조회
      */
-    public UserDtoRes.userAttendanceA getUserBasic(Long userId){
+    public UserDtoRes.userAttendanceA getUserBasic(String phone){
 
-        String query = "SELECT userId, name, gender, updatedAt FROM User WHERE userId = ?";
+        String query = "SELECT userId, name, gender, updatedAt FROM User WHERE phone = ?";
 
-        return this.jdbcTemplate.queryForObject(query, userAttendanceARowMapper, userId);
+        return this.jdbcTemplate.queryForObject(query, userAttendanceARowMapper, phone);
     }
 
 
     /**
-     * 회원 id로 회원 정보 조회
+     * 회원 phone 으로 회원 정보 조회
      * 회원 정보, 참여 수업, 출석 일자 조회
      *
      */
-    public UserDtoRes.userDetails getUserDetails(Long userId){
+    public UserDtoRes.userDetails getUserDetails(String phone){
 
         String query = """
                 SELECT
@@ -101,7 +101,7 @@ public class UserRepository {
                 GROUP BY
                     u.userId;""";
 
-        return this.jdbcTemplate.queryForObject(query, userDetailsRowMapper, userId);
+        return this.jdbcTemplate.queryForObject(query, userDetailsRowMapper, phone);
         // 트레이닝 수업, 락커번호 불러오기
         // 출석일 수도 불러오기
     }
